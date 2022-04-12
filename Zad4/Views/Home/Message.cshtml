@@ -1,0 +1,56 @@
+﻿@using Zad4.Data
+@using Zad4.Controllers
+@model List<Message>
+@{
+}
+<form method="post">
+    <button type="submit" class="btn btn-primary m-2" style="width:85%" asp-controller="Home" asp-action="Index">Log Out</button>
+    <button type="submit" class="btn btn-primary mt-2 ml-2 mb-2" asp-controller="Home" asp-action="MainMenu" asp-route-login="@ViewData["User"]">Back</button>
+    <div class="container">
+        <div class="row">
+            <div class="col w-50" id="MessageDiv">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <div class="row table table-dark table-striped m-1" style="white-space: nowrap; border: 1px solid black; color: lightgray; border-radius: 5px; text-align: left; cursor: pointer; " id="@Model[i].Id" onclick="ShowMessage(this.id)">
+                        @if (Model[i].ForUser == Convert.ToString(ViewData["User"]))
+                        {
+                            <div class="p-1" style="width: 60%; font-size: 14px; overflow: hidden; text-overflow: ellipsis;">От @Model[i].FromUser</div>
+                            <div class="p-1" style="font-size: 14px; text-align: right;">@Model[i].SendDate</div>
+                        @if (Model[i].Status == "UnRead")
+                        {
+                        <div class="p-1" style="width: 10%; font-size: 16px; text-align: right; color: red;">New!</div>
+                        }
+                        }
+                        else
+                        {
+                            <div class="p-1" style="overflow-wrap: break-word; width: 60%; font-size: 14px; overflow: hidden; text-overflow: ellipsis;">Для @Model[i].ForUser</div>
+                            <div class="p-1" style="font-size: 14px; text-align: right;">@Model[i].SendDate</div>
+                        }
+                        <div class="p-1" style="overflow-wrap: break-word; width: 100%; font-size: 16px; overflow: hidden; text-overflow: ellipsis; ">@Model[i].Title @Model[i].Text</div>
+                    </div>
+                }
+            </div>
+            <div class="col">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" name="ForUser" placeholder="name@example.com" maxlength="50">
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" name="Title" placeholder="Title" maxlength="50">
+                </div>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a Letter here..." name="Text" id="letter" maxlength="1000"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary m-2 w-100" asp-controller="Home" asp-action="AddMessage" asp-route-FromUser="@ViewData["User"]">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    function ShowMessage(val) {
+        console.log(val);
+        if (document.getElementById(val).style.whiteSpace == "nowrap")
+            document.getElementById(val).style.whiteSpace = "pre-wrap";
+        else
+            document.getElementById(val).style.whiteSpace = "nowrap";
+    }
+</script>

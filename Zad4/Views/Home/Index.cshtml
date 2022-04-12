@@ -1,0 +1,27 @@
+﻿@using Zad4.Data
+@model User
+@{
+    ViewData["Title"] = "Sign In";
+}
+<form class="m-auto w-25 text-xs-center pt-md-5">
+    <div class="mb-3 text-center">
+        <label class="form-label text-center">Email</label>
+        <input asp-for="Login" maxlength="25" type="text" class="form-control" id="exampleInputEmail1">
+    </div>
+    <div class="mb-3 text-center">
+        <label class="form-label text-center">Password</label>
+        <input asp-for="Password" maxlength="25" type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div asp-validation-summary="All" class="" style="color:red"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary m-auto w-100" asp-controller="Home" asp-action="Index" formmethod="post">Log In</button>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary m-auto w-100" asp-controller="Home" asp-action="Sign_Up">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+</form>
